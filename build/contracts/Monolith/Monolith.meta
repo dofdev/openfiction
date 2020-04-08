@@ -1,0 +1,18 @@
+{
+    "compile": {
+        "gasEstimates": {
+            "creation": {
+                "codeDepositCost": "512600",
+                "executionCost": "549",
+                "totalCost": "513149"
+            },
+            "external": {
+                "bookmarkPlace(address)": "607",
+                "publish(address,string)": "infinite",
+                "read(address)": "infinite",
+                "turn(address,uint256)": "27007",
+                "users(address)": "infinite"
+            }
+        }
+    }
+}

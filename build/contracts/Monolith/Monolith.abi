@@ -1,0 +1,110 @@
+[
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_address",
+                "type": "address"
+            },
+            {
+                "name": "_by",
+                "type": "uint256"
+            }
+        ],
+        "name": "turn",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_address",
+                "type": "address"
+            }
+        ],
+        "name": "bookmarkPlace",
+        "outputs": [
+            {
+                "name": "",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "_address",
+                "type": "address"
+            }
+        ],
+        "name": "read",
+        "outputs": [
+            {
+                "name": "",
+                "type": "string"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": true,
+        "inputs": [
+            {
+                "name": "",
+                "type": "address"
+            }
+        ],
+        "name": "users",
+        "outputs": [
+            {
+                "name": "name",
+                "type": "string"
+            },
+            {
+                "name": "bookmark",
+                "type": "uint256"
+            }
+        ],
+        "payable": false,
+        "stateMutability": "view",
+        "type": "function"
+    },
+    {
+        "constant": false,
+        "inputs": [
+            {
+                "name": "_address",
+                "type": "address"
+            },
+            {
+                "name": "_content",
+                "type": "string"
+            }
+        ],
+        "name": "publish",
+        "outputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "function"
+    },
+    {
+        "inputs": [],
+        "payable": false,
+        "stateMutability": "nonpayable",
+        "type": "constructor"
+    }
+]
