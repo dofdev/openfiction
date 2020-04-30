@@ -11,9 +11,7 @@ contract Monolith {
     }
 
     mapping(uint => Fiction) public fictions;
-    mapping(address => uint) public tokens;
-
-    event FictionPublished(uint id, string meta);
+    event FictionPublished(uint id, string meta); // content?
 
     constructor() public {
         fictions[0] = Fiction(0, msg.sender, "", "");
@@ -21,9 +19,13 @@ contract Monolith {
     }
 
     function publish(uint _from, address _publisher, string memory _meta, string memory _content) public {
-        publishCount++;
-        fictions[publishCount] = Fiction(_from, _publisher, _meta, _content);
-        emit FictionPublished(publishCount, _meta);
-        tokens[fictions[_from].publisher]++;
+        if (_from > 0 && _from <= publishCount) {
+            publishCount++;
+            fictions[publishCount] = Fiction(_from, _publisher, _meta, _content);
+            emit FictionPublished(publishCount, _meta);
+            tokens[fictions[_from].publisher]++;
+        }
     }
+
+    mapping(address => uint) public tokens; // early setup (see erc20)
 }
