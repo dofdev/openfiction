@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <title>Open Fiction</title>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div id="itemTemplate" onclick="App.open(this)" style="display: none;">
+    <div class="id"></div>
+    <div class="meta"></div>
+  </div>
+  
+  <!-- hide them and show them to swap between them -->
+  <div id="watcher">
+    
+  </div>
+  <!-- tabindex="0" onkeydown="App.toggleSection(); return false;" -->
+  <div id="navbar" onclick="App.toggleSection(); return false;">
+  <div id="logo">F</div>
+    <div id="otherTab" class="tab">...1220</div>
+    <div id="message">Loading...</div>
+  </div>
+  <div id="reader">
+    <div id="controls">
+      <input type="number" id="id" name="id" value="1" step="1" />
+      <div id="read" onclick="App.read(); return false;">Read</div>
+      <div id="publish" onclick="App.publish(); return false;">Publish</div>
+    </div>
+    <div id="controls">
+      <input type="text" id="meta" name="meta" placeholder="meta" />
+      <div id="from" onclick="App.from(); return false;">From 0</div>
+    </div>
+    <textarea id="content" rows="20"></textarea>
+  </div>
+
+  
+  <!-- <div id="credit">by <a href="https://dofdev.org">dofdev</a></div> -->
+
+
+  <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <!-- Include all compiled plugins (below), or include individual files as needed -->
+  <script src="vendor/truffle-contract/dist/truffle-contract.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
