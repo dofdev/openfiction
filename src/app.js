@@ -2,6 +2,7 @@ App = {
   loading: false,
   contracts: {},
   collection: [],
+  newFiction: 0,
 
   load: async () => {
     await App.loadWeb3()
@@ -10,7 +11,6 @@ App = {
     await App.render()
   },
 
-  // https://medium.com/metamask/https-medium-com-metamask-breaking-change-injecting-web3-7722797916a8
   loadWeb3: async () => {
     if (typeof web3 !== 'undefined') {
       App.web3Provider = web3.currentProvider
@@ -75,134 +75,78 @@ App = {
     }
 
     $('#message').html("Loading...");
-
-    // await App.read()
+    App.updateOtherTab(0)
+    
+    // Load random piece of fiction
+    const pubCount = await App.monolith.publishCount();
+    const randomID = Math.floor((Math.random() * pubCount.toNumber()) + 1);
+    $('#id').val(randomID)
+    await App.read()
 
     // Update loading state
-    $('#message').html(App.account);
+    $('#message').html("Welcome to Open Fiction");
   },
-
-  // renderTasks: async () => {
-  //   // Load the total task count from the blockchain
-  //   const publishCount = await App.monolith.publishCount()
-  //   const $taskTemplate = $('.taskTemplate')
-
-  //   // Render out each task with a new task template
-  //   for (var i = 1; i <= publishCount; i++) {
-  //     // Fetch the task data from the blockchain
-  //     const task = await App.monolith.fictions(i)
-  //     const taskId = task[0].toNumber()
-  //     const taskContent = task[1]
-  //     const taskCompleted = task[2]
-
-  //     // Create the html for the task
-  //     const $newTaskTemplate = $taskTemplate.clone()
-  //     $newTaskTemplate.find('.content').html(taskContent)
-  //     $newTaskTemplate.find('input')
-  //       .prop('name', taskId)
-  //       .prop('checked', taskCompleted)
-  //     // .on('click', App.toggleCompleted)
-
-  //     // Put the task in the correct list
-  //     if (taskCompleted) {
-  //       $('#completedTaskList').append($newTaskTemplate)
-  //     } else {
-  //       $('#taskList').append($newTaskTemplate)
-  //     }
-  
-  //     // Show the task
-  //     $newTaskTemplate.show()
-  //   }
-  // },
   
   publish: async () => {
     $('#message').html("Publishing to BlockChain");
     const id = $('#id').val()
     const meta = $('#meta').val()
     const content = $('#content').val()
-    await App.monolith.publish(id, App.account, meta, content)
+    await App.monolith.publish(id, meta, content)
     // App.loading = true
     // window.location.reload()
-    $('#message').html("Published");
+    $('#message').html("");
   },
 
   read: async () => {
     const id = $('#id').val()
     const fiction = await App.monolith.fictions(id)
-    const from = fiction[0].toNumber()
-    const meta = fiction[2]
-    const content = fiction[3]
-    $('#from').html(fiction[0].toNumber())
-    $('#meta').val(fiction[2])
-    $('#content').val(fiction[3])
+    const fromID = fiction[0].toNumber()
+    $('#from').data("id", fromID)
+    $('#from').html("From: " + fromID)
+    $('#meta').val(fiction[1])
+    $('#content').val(fiction[2])
     
-    const tokens = await App.monolith.tokens(fiction[1])
-    console.log(tokens.toNumber())
+    // const tokens = await App.monolith.tokens(fiction[1])
+    // console.log(tokens.toNumber())
   },
 
   from: async () => {
-    const from = $('#from').html()
+    const from = $('#from').data('id')
     $('#id').val(from)
     await App.read()
   },
 
-
-  // search: async () => {
-  //   const publishCount = await App.monolith.publishCount()
-  //   const fiction = await App.monolith.fictions(publishCount)
-  //   // search over the the x most recent
-  //   // compare
-  //   const search = $('#search').val()
-  //   if (search === fiction[1]) {
-  //     console.log("True")
-  //   }
-  //   else{
-  //     console.log("False")
-  //   }
-  // },
-
-  // robust and simple system for now
-  // just worry about the meta for now
-  // just worry about the full list no filter for now
-  // filtering will come with scale
-
   filter(fiction) {
     App.collection.push(fiction)
 
-    $('#otherTab').html(App.collection.length)
+    App.updateOtherTab(1)
     
     $('#watcher').empty()
     const $template = $('#itemTemplate')
-    for (var i = 0; i < App.collection.length; i++) {
+    for (var i = App.collection.length - 1; i >= 0; i--) {
       //  Create the html for the item
       const $temp = $template.clone()
-      $temp.find('.id').html(App.collection[i].args.id.toNumber())
-      $temp.find('.meta').html(App.collection[i].args.meta)
+      $temp.html(App.collection[i].args.id.toNumber() + " | " + App.collection[i].args.meta)
 
       // sets the value of the id
       $temp.data('id', App.collection[i].args.id)
 
-
-      // $temp.on('click', App.open())
-      // , App.read(), App.toggleSection())
-      // set to the right things
-      
       // Put the item in the correct list
       $('#watcher').append($temp)
-      
-      // Show the item
       $temp.show()
     }
   },
 
   open(element) {
-    const id = $(element).data('id'); // retrieves the value of userid
+    const id = $(element).data('id');
     $('#id').val(id.toNumber())
     App.read()
     App.toggleSection()
   },
 
   toggleSection() {
+    App.updateOtherTab(0)
     if ($("#watcher").css("display") === "none") {
       $("#watcher").show(100)
       $("#reader").hide(100)
@@ -210,6 +154,17 @@ App = {
     else {
       $("#watcher").hide(100)
       $("#reader").show(100)
+    }
+  },
+
+  updateOtherTab(value) {
+    if (value > 0) {
+      App.newFiction += value
+      $('#otherTab').html(App.newFiction)
+    }
+    else {
+      App.newFiction = 0
+      $('#otherTab').html("")
     }
   },
 }

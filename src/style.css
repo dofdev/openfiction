@@ -22,10 +22,10 @@ body {
   background-color: white;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 }
 
 #logo {
-  cursor: pointer;
   color: black;
   text-decoration: none;
   padding-left: 1em;
@@ -44,13 +44,11 @@ body {
 
 #otherTab {
   /* flex-grow: 1; */
-  font-size: 14px;
-  border-top: 3px solid white;
-  background-color: teal;
-  min-width: 2em;
+  /* font-size: 12px; */
+  /* background-color: teal; */
   /* width: fit-content; */
-  border-radius: 1em;
-  color: white;
+  font-weight: bold;
+  color: teal;
 }
 
 #message {
@@ -84,15 +82,11 @@ input {
   flex-grow: 3;
   background-color: black;
   color: white;
-  border-top: 1px solid var(--edge);
-  border-left: 1px solid var(--edge);
 }
 
 #meta {
   width: 100%;
   background-color: lightblue;
-  border-top: 1px solid var(--edge);
-  border-left: 1px solid var(--edge);
 }
 
 #content {
@@ -104,14 +98,13 @@ input {
   box-shadow: 0px 0px 12px rgba(255, 255, 255, 0.15);
   width: 100%;
   text-align: left;
-  border-left: 1px solid var(--edge);
   resize: vertical;
 }
 
 #controls {
   display: flex;
   align-items: center;
-  padding: 0.3em;
+  /* padding: 0.3em; */
   background-color: gray;
 }
 
@@ -121,8 +114,9 @@ input {
   text-align: center;
   padding: 0.5em;
   background-color: white;
-  border-left: 2px solid darkgray;
+  box-shadow: inset 0px 0px 1px 1px var(--edge);
   min-width: 80px;
+  cursor: pointer;
 }
 
 #itemTemplate {
@@ -130,4 +124,10 @@ input {
   padding: 0.3em;
   cursor: pointer;
   display: flex;
+  border-bottom: 1px solid var(--edge);
+}
+
+#publish {
+  background-color: black !important;
+  color: white;
 }
