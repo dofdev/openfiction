@@ -16,6 +16,7 @@ contract Monolith {
     constructor() public {
         fictions[0] = Fiction(0, "", "");
         credit[0] = msg.sender;
+        publish(0, "love", "for ray");
     }
 
     function publish(
@@ -35,4 +36,20 @@ contract Monolith {
     }
 
     mapping(uint256 => address payable) credit;
+
+    function payback(uint256 _to) public payable {
+      require(_to >= 0 && _to <= publishCount, "no payable address at that id");
+      uint256 receiver = _to;
+      uint256 value = msg.value;
+      while (receiver > 0)
+      {
+        uint256 piece = value / 2;
+        value -= piece;
+        credit[receiver].transfer(piece);
+        receiver = fictions[receiver].from;
+      }
+      credit[receiver].transfer(value);
+      // first step done!!
+      // time to get fancy ^-^
+    }
 }

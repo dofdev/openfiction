@@ -74,28 +74,36 @@ App = {
       return
     }
 
-    $('#message').html("Loading...");
+    $('#message').html("Loading...")
     App.updateOtherTab(0)
     
     // Load random piece of fiction
-    const pubCount = await App.monolith.publishCount();
-    const randomID = Math.floor((Math.random() * pubCount.toNumber()) + 1);
+    const pubCount = await App.monolith.publishCount()
+    const randomID = Math.floor((Math.random() * pubCount.toNumber()) + 1)
     $('#id').val(randomID)
     await App.read()
 
     // Update loading state
-    $('#message').html("Welcome to Open Fiction");
+    $('#message').html("Welcome to Open Fiction")
   },
   
   publish: async () => {
-    $('#message').html("Publishing to BlockChain");
+    $('#message').html("Publishing to BlockChain")
     const id = $('#id').val()
     const meta = $('#meta').val()
     const content = $('#content').val()
     await App.monolith.publish(id, meta, content)
     // App.loading = true
     // window.location.reload()
-    $('#message').html("");
+    $('#message').html("")
+  },
+
+  payback: async () => {
+    $('#message').html("Paying it back")
+    const id = $('#id').val()
+    const value = $('#value').val()
+    await App.monolith.payback(id, { from: web3.eth.coinbase, value: web3.toWei(value, 'ether') })
+    $('#message').html("Payed back ^-^")
   },
 
   read: async () => {

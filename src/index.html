@@ -13,14 +13,14 @@
 
 <body>
   <div id="itemTemplate" onclick="App.open(this)" style="display: none;"></div>
-  
+
   <!-- hide them and show them to swap between them -->
   <div id="watcher">
-    
+
   </div>
   <!-- tabindex="0" onkeydown="App.toggleSection(); return false;" -->
   <div id="navbar" onclick="App.toggleSection(); return false;">
-  <div id="logo">F</div>
+    <div id="logo">F</div>
     <div id="otherTab" class="tab">0</div>
     <div id="message">Loading...</div>
   </div>
@@ -35,9 +35,15 @@
       <div id="from" onclick="App.from(); return false;"></div>
     </div>
     <textarea id="content" rows="20"></textarea>
+    <div id="controls">
+      <div class="info" onclick="location.href='https://ethereum.org';">ETH</div>
+      <input type="number" id="value" name="value" value="0"></input>
+      <div onclick="App.payback(); return false;">Payback</div>
+      <div class="info" onclick="location.href='https://github.com/dofdev/openfiction';"">?</div>
+    </div>
   </div>
 
-  
+
   <!-- <div id="credit">by <a href="https://dofdev.org">dofdev</a></div> -->
 
 
