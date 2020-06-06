@@ -1,6 +1,5 @@
 pragma solidity ^0.5.0;
 
-
 contract Monolith {
     uint256 public publishCount = 0;
 
@@ -11,12 +10,12 @@ contract Monolith {
     }
 
     mapping(uint256 => Fiction) public fictions;
-    event FictionPublished(uint256 id, string meta); // content?
+    event FictionPublished(uint256 id, string meta);
 
     constructor() public {
         fictions[0] = Fiction(0, "", "");
         credit[0] = msg.sender;
-        publish(0, "love", "for ray");
+        publish(0, "", "for ray ^-^");
     }
 
     function publish(
@@ -28,11 +27,7 @@ contract Monolith {
         publishCount++;
         fictions[publishCount] = Fiction(_from, _meta, _content);
         emit FictionPublished(publishCount, _meta);
-
         credit[publishCount] = msg.sender;
-        // VERY incomplete
-        // reward for how much?
-        // credit[_from].transfer(1000);
     }
 
     mapping(uint256 => address payable) credit;
@@ -49,7 +44,5 @@ contract Monolith {
         receiver = fictions[receiver].from;
       }
       credit[receiver].transfer(value);
-      // first step done!!
-      // time to get fancy ^-^
     }
 }
