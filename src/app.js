@@ -157,11 +157,11 @@ App = {
     App.updateOtherTab(0)
     if ($("#watcher").css("display") === "none") {
       $("#watcher").show(100)
-      $("#reader").hide(100)
+      // $("#reader").hide(100)
     }
     else {
       $("#watcher").hide(100)
-      $("#reader").show(100)
+      // $("#reader").show(100)
     }
   },
 

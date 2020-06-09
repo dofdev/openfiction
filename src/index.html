@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- <meta name="viewport" content="width=device-width, initial-scale=1"> -->
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
   <title>Open Fiction</title>
 
@@ -27,20 +27,23 @@
   <div id="reader">
     <div id="controls">
       <input type="number" id="id" name="id" value="1" step="1" />
-      <div id="read" onclick="App.read(); return false;">Read</div>
-      <div id="publish" onclick="App.publish(); return false;">Publish</div>
+      <div class="btn" id="read" onclick="App.read(); return false;">Read</div>
+      <div class="btn" id="publish" onclick="App.publish(); return false;">Publish</div>
     </div>
     <div id="controls">
       <input type="text" id="meta" name="meta" placeholder="meta" />
-      <div id="from" onclick="App.from(); return false;"></div>
+      <div class="btn" id="from" onclick="App.from(); return false;"></div>
     </div>
-    <textarea id="content" rows="20"></textarea>
+    <textarea id="content" rows="30"></textarea>
     <div id="controls">
-      <div class="info" onclick="location.href='https://ethereum.org';">ETH</div>
+      <div class="btn" class="info" onclick="location.href='https://ethereum.org';">ETH</div>
       <input type="number" id="value" name="value" value="0"></input>
-      <div onclick="App.payback(); return false;">Payback</div>
-      <div class="info" onclick="location.href='https://github.com/dofdev/openfiction';"">?</div>
+      <div class="btn" onclick="App.payback(); return false;">Payback</div>
+      <div class="btn" class="info" onclick="location.href='https://github.com/dofdev/openfiction';"">?</div>
     </div>
+    <br>
+    <br>
+    <br>
   </div>
 
 
