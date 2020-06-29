@@ -3,46 +3,44 @@ pragma solidity ^0.5.0;
 contract Monolith {
     uint256 public publishCount = 0;
 
-    struct Fiction {
-        uint256 from;
-        string meta;
-        string content;
-    }
-
-    mapping(uint256 => Fiction) public fictions;
+    mapping(uint256 => uint256) public credits;
+    mapping(uint256 => string) public metas;
+    mapping(uint256 => string) public contents;
     event FictionPublished(uint256 id, string meta);
 
     constructor() public {
-        fictions[0] = Fiction(0, "", "");
-        credit[0] = msg.sender;
-        publish(0, "", "for ray ^-^");
+        publish(0, "", "");
+        publish(0, "genesis", "In the beginning...");
     }
 
     function publish(
-        uint256 _from,
+        uint256 _credit,
         string memory _meta,
         string memory _content
     ) public {
-        require(_from >= 0 && _from <= publishCount, "invalid credit(from id)");
-        publishCount++;
-        fictions[publishCount] = Fiction(_from, _meta, _content);
+        require(_credit >= 0 && _credit <= publishCount, "invalid credit(from x)");
+        credits[publishCount] = _credit;
+        metas[publishCount] = _meta;
+        contents[publishCount] = _content;
         emit FictionPublished(publishCount, _meta);
-        credit[publishCount] = msg.sender;
+        authors[publishCount] = msg.sender;
+        publishCount++;
     }
 
-    mapping(uint256 => address payable) credit;
+    mapping(uint256 => address payable) authors;
 
     function payback(uint256 _to) public payable {
-      require(_to >= 0 && _to <= publishCount, "no payable address at that id");
+      require(_to >= 0 && _to < publishCount, "no payable address at that id");
+      // require divisible by 2
       uint256 receiver = _to;
       uint256 value = msg.value;
       while (receiver > 0)
       {
         uint256 piece = value / 2;
         value -= piece;
-        credit[receiver].transfer(piece);
-        receiver = fictions[receiver].from;
+        authors[receiver].transfer(piece);
+        receiver = credits[receiver];
       }
-      credit[receiver].transfer(value);
+      authors[receiver].transfer(value);
     }
 }

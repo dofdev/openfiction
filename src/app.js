@@ -79,7 +79,7 @@ App = {
     
     // Load random piece of fiction
     const pubCount = await App.monolith.publishCount()
-    const randomID = Math.floor((Math.random() * pubCount.toNumber()) + 1)
+    const randomID = Math.floor((Math.random() * pubCount.toNumber()))
     $('#id').val(randomID)
     await App.read()
 
@@ -108,15 +108,14 @@ App = {
 
   read: async () => {
     const id = $('#id').val()
-    const fiction = await App.monolith.fictions(id)
-    const fromID = fiction[0].toNumber()
-    $('#from').data("id", fromID)
-    $('#from').html("From: " + fromID)
-    $('#meta').val(fiction[1])
-    $('#content').val(fiction[2])
-    
-    // const tokens = await App.monolith.tokens(fiction[1])
-    // console.log(tokens.toNumber())
+    const credit = (await App.monolith.credits(id)).toNumber()
+    const meta = await App.monolith.metas(id)
+    const content = await App.monolith.contents(id)
+
+    $('#from').data("id", credit)
+    $('#from').html("credit " + credit)
+    $('#meta').val(meta)
+    $('#content').val(content)
   },
 
   from: async () => {
