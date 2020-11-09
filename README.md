@@ -7,5 +7,5 @@ A platform for formative fiction, through experimental incentive structures.
 
 ## todo
 * finish core filtering and flag system (persistent? locally?)
-* consider the design and implications of two credited publication indexes
+* flow forward through the most credited branches
 * 0 credit index donation -> sitewide publisher payout (logistics? implementation details?)
